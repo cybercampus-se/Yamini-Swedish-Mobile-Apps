@@ -47,18 +47,6 @@
 
 **Delete below from your repo**
 
-## Create your thesis repository by importing our thesis template 
-
-This documentaton helps you create a repo that follows a common template for all thesis projects. If you have suggestions, create a [new
-issue](https://github.com/cybercampus-se/project-template/issues/new) or [pull
-request](https://github.com/cybercampus-se/project-template/pull/new). Before making such a request, please do not add additional info to your homepage of the repository.
-
-To use this template repository as a template for your project, simply create your repository and select this repo as the template like below:
-Current name of the template repo is thesis-template
-
-![Screenshot_20201003_112921](https://user-images.githubusercontent.com/11805218/94988207-dc43c300-056b-11eb-9ae7-7041bd438133.png)
-
-**Do not delete below from your repo**
 
 
 ## Team
@@ -70,7 +58,7 @@ Current name of the template repo is thesis-template
 ## Timeline
 
 - Status: running :green_circle: (or pending :yellow_circle:, completed :orange_circle:)
-- Started: 2025-20
+- Started: 2025-01
 - Ended: 2025-
 
 ## Parent project: Vulnerability Research of Mobile Applications Commonly Used in Sweden
