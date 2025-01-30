@@ -1,0 +1,33 @@
+APK Tool:
+A great tool for disassembling and patching android apps
+
+Smali code is the human-readable representation of the DEX bytecode used in Android applications. It is the disassembled form of Android application code and is closely associated with the Dalvik Virtual Machine (DVM), which is used to execute Android apps.
+
+
+dex2jar
+	• What It Does:
+		○ Converts .dex (Dalvik Executable) files into .jar (Java Archive) files.
+		○ .dex files are the compiled bytecode format for Android apps and are difficult to read directly.
+	• Why It's Needed:
+		○ Android applications are distributed as .apk files, which contain .dex files.
+		○ To analyze the source code, these .dex files must first be converted into a format readable by Java decompilers, like .jar.
+
+JD-GUI
+	• What It Does:
+		○ A graphical Java decompiler used to view the source code of .class files inside .jar files.
+	• Why It's Needed:
+		○ Once dex2jar generates a .jar file, you need a tool to decompile and view the Java source code.
+		○ JD-GUI makes it possible to inspect the app’s logic, identify vulnerabilities, and understand how it processes user inputs or communicates with external servers.
+
+- (Frida)	A general-purpose dynamic instrumentation toolkit for hooking and manipulating functions in real-time.	
+-(Objection) A framework built on top of Frida, designed for mobile app security testing with prebuilt scripts.
+Purpose- (Frida)	Broad functionality across platforms (mobile, desktop, etc.), used for advanced dynamic analysis and hooking.	
+-(Objection)Focused on mobile app penetration testing (iOS and Android), offering built-in commands for common tasks.
+Complexity- (Frida)Requires scripting knowledge (e.g., JavaScript) and understanding of app internals.	
+-(Objection)Beginner-friendly with ready-to-use commands for common testing scenarios.
+
+-----Patching in software development and cybersecurity refers to the process of updating or modifying a software program or application to fix issues, improve functionality, or address vulnerabilities.
+
+Dynamic Analysis	-Frida, Objection	- Frida for flexibility and custom hooks, Objection for quick analysis (e.g., SSL pinning bypass, API call monitoring).
+Reverse Engineering-	JADX, Frida	- JADX for decompiling and analyzing code; Frida to dynamically test and modify functions identified during reverse engineering.
+Static Analysis-	MobSF, JADX	MobSF - for automation and report generation; JADX for deep analysis of specific classes, configurations, or hardcoded credentials.
