@@ -64,14 +64,14 @@ Current name of the template repo is thesis-template
 ## Team
 
 - Supervisor: [Dr. Emre Süren](https://github.com/beyefendi)
-- Active members: [Adam](link-to-online-profile) | [Eva](link-to-online-profile)
-- Past members: [Sonson](link-to-online-profile)
+- Active members: Yamini Balannagari
+  
 
 ## Timeline
 
 - Status: running :green_circle: (or pending :yellow_circle:, completed :orange_circle:)
-- Started: 2029-12
-- Ended: 2030-05
+- Started: 2025-20
+- Ended: 2025-
 
 ## Parent project: Vulnerability Research of Mobile Applications Commonly Used in Sweden
 
