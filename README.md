@@ -73,7 +73,7 @@ Current name of the template repo is thesis-template
 - Started: 2029-12
 - Ended: 2030-05
 
-## Parent project: [LLM Security | Vulnerability Researh | Digital Forensics](link-to-umbrella-project)
+## Parent project: Vulnerability Research of Mobile Applications Commonly Used in Sweden
 
 ## Abstract
 
@@ -81,11 +81,15 @@ The prevalence and non-stop evolving technical sophistication of Exploit Kits (E
 
 ## Illustration
 
-<img  src=".images/research-illustration.png" alt="Research Illustration" width=800 align="center" />
+
 
 ## Video recording
 
-Only embed the Youtube URL published from our account. Shoot a video (without video, but feel free to use colorful mouse pointers) regarding how your tool works, how you exploit vulnerability, etc. It will be okay if you only shoot your desktop.
+The widespread adoption of mobile applications for critical services such as banking, transportation, healthcare, parking, and food delivery has heightened concerns about data security and user privacy. These applications manage vast amounts of sensitive information, making them prime targets for cyber threats. This research aims to systematically identify and analyze security vulnerabilities in five widely used mobile applications in Sweden—Foodora, Handelsbanken, SL, Apotek, and Betala P—through penetration testing, static and dynamic analysis, and reverse engineering techniques.
+
+Building upon prior research in mobile application security, this study focuses on key areas such as data encryption, authentication mechanisms, session management, API security, and GDPR compliance. Utilizing advanced security assessment tools, including Burp Suite, MobSF, OWASP ZAP, Frida, and APKTool, the research will simulate real-world attack scenarios to uncover vulnerabilities that may compromise user privacy and financial security.
+
+By employing a systematic penetration testing approach, this study seeks to provide actionable insights for developers, policymakers, and regulatory bodies to enhance security measures in mobile applications. The expected outcomes include a comprehensive vulnerability assessment report, security enhancement recommendations, and increased awareness among users regarding potential cyber threats. Ultimately, this research aims to strengthen the security posture of mobile applications, contributing to a more resilient digital ecosystem in Sweden.
 
 <br>
 
