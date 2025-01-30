@@ -45,7 +45,6 @@
   <!-- The README template for projects at the Royal Hacking Lab -->
 <p>
 
-**Delete below from your repo**
 
 
 
