@@ -1,0 +1,380 @@
+ls\APK\Handelsen.apk
+*************************************************************************
+**   AndroBugs Framework - Android App Security Vulnerability Scanner  **
+**                            version: 1.0.0                           **
+**     author: Yu-Cheng Lin (@AndroBugs, http://www.AndroBugs.com)     **
+**               contact: androbugs.framework@gmail.com                **
+*************************************************************************
+Platform: Android
+Package Name: com.handelsbanken.mobile.android
+Package Version Name: 11.1.2
+Package Version Code: 11112
+Min Sdk: 24
+Target Sdk: 29
+MD5   : f0e61420677e874f67d4e14d2db720b7
+SHA1  : 131cbbad3eb52572dbde50cf8dde5b8100b2f093
+SHA256: 04f59ff27809447cba87b3c720bf844d3abe1657c81b7a1ef2e3b7aca1405838
+SHA512: 3bb5aefd0e038eb2efddd31958820ef8501ef78d3f62451d99c997aff22cd9f16b1910049e510350cf3b7884f8d1e1bd75b692d062117c4d689a58d857d3a924
+------------------------------------------------------------
+[Critical] <Command> Runtime Command Checking:
+           This app is using critical function 'Runtime.getRuntime().exec("...")'.
+           Please confirm these following code secions are not harmful:
+               => Lcom/handelsbanken/android/resources/development/IssueReportActivity;->s0()Ljava/lang/String; (0x1a) --->
+                    Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;
+[Critical]  AndroidManifest ContentProvider Exported Checking:
+           Found "exported" ContentProvider, allowing any other app on the device to access it (AndroidManifest.xml). You should modify the
+           attribute to [exported="false"] or set at least "signature" protectionalLevel permission if you don't want to.
+           Vulnerable ContentProvider Case Example:
+             (1)https://www.nowsecure.com/mobile-security/ebay-android-content-provider-injection-vulnerability.html
+             (2)http://blog.trustlook.com/2013/10/23/ebay-android-content-provider-information-disclosure-vulnerability/
+             (3)http://www.wooyun.org/bugs/wooyun-2010-039169
+                 provider => com.handelsbanken.android.resources.utils.PdfProvider
+[Critical] <SSL_Security> SSL Connection Checking:
+           URLs that are NOT under SSL (Total:2):
+               http://localhost:4949
+                   => Lcom/handelsbanken/mobile/android/einvoice/o1;->a(Lcom/handelsbanken/mobile/android/einvoice/domain/EinvoiceTicketDTO;
+                    Landroid/content/DialogInterface; I)V
+                   => Lcom/handelsbanken/mobile/android/einvoice/EInvoicesArchiveActivity;->a(Landroid/content/DialogInterface; I)V
+                   => Lcom/handelsbanken/mobile/android/payment/n0;->a(Lcom/handelsbanken/android/resources/e;
+                    Lcom/handelsbanken/android/resources/domain/HalLinkDTO; Ljava/lang/String;)Lh/b0;
+                   => Lcom/handelsbanken/mobile/android/payment/m0;->b(Landroid/content/DialogInterface; I)V
+               http://ns.adobe.com/xap/1.0/
+                   => Lc/j/a/a;-><clinit>()V
+[Critical] <WebView><Remote Code Execution><#CVE-2013-4710#> WebView RCE Vulnerability Checking:
+           Found a critical WebView "addJavascriptInterface" vulnerability. This method can be used to allow JavaScript to control the host
+           application.
+           This is a powerful feature, but also presents a security risk for applications targeted to API level JELLY_BEAN(4.2) or below,
+           because JavaScript could use reflection to access an injected object's public fields. Use of this method in a WebView containing
+           untrusted content could allow an attacker to manipulate the host application in unintended ways, executing Java code with the
+           permissions of the host application.
+           Reference:
+             1."http://developer.android.com/reference/android/webkit/WebView.html#addJavascriptInterface(java.lang.Object,
+           java.lang.String) "
+             2.https://labs.mwrinfosecurity.com/blog/2013/09/24/webview-addjavascriptinterface-remote-code-execution/
+             3.http://50.56.33.56/blog/?p=314
+             4.http://blog.trustlook.com/2013/09/04/alert-android-webview-addjavascriptinterface-code-execution-vulnerability/
+           Please modify the below code:
+               => Lcom/handelsbanken/android/resources/InetActivity;->m0()V (0x136) --->
+                    Landroid/webkit/WebView;->addJavascriptInterface(Ljava/lang/Object; Ljava/lang/String;)V
+[Warning]  External Storage Accessing:
+           External storage access found (Remember DO NOT write important files to external storages):
+               => Lc/g/e/b;->b(Landroid/content/Context; Ljava/lang/String;)Lc/g/e/b$a; (0xcc) --->
+                    Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+[Warning]  AndroidManifest Exported Components Checking:
+           Found "exported" components(except for Launcher) for receiving outside applications' actions (AndroidManifest.xml).
+           These components can be initilized by other apps. You should add or modify the attribute to [exported="false"] if you don't want
+           to.
+           You can also protect it with a customized permission with "signature" or higher protectionLevel and specify in
+           "android:permission" attribute.
+                 activity => com.handelsbanken.android.resources.push.landingpage.NotificationInformationActivity
+[Warning] <Sensitive_Information> Getting ANDROID_ID:
+           This app has code getting the 64-bit number "Settings.Secure.ANDROID_ID".
+           ANDROID_ID seems a good choice for a unique device identifier. There are downsides: First, it is not 100% reliable on releases of
+           Android prior to 2.2 (Froyo).
+           Also, there has been at least one widely-observed bug in a popular handset from a major manufacturer, where every instance has
+           the same ANDROID_ID.
+           If you want to get an unique id for the device, we suggest you use "Installation" framework in the following article.
+           Please check the reference: http://android-developers.blogspot.tw/2011/03/identifying-app-installations.html
+               => Lcom/google/firebase/crashlytics/d/h/h;->i(Landroid/content/Context;)Z (0xc) --->
+                    Landroid/provider/Settings$Secure;->getString(Landroid/content/ContentResolver; Ljava/lang/String;)Ljava/lang/String;
+               => Lcom/google/android/gms/measurement/internal/v9;->c(Lcom/google/android/gms/measurement/internal/r;
+                    Lcom/google/android/gms/measurement/internal/ma;)V (0xe32) --->
+                    Landroid/provider/Settings$Secure;->getString(Landroid/content/ContentResolver; Ljava/lang/String;)Ljava/lang/String;
+               => Le/b/a/b/h/h/ia;->a(Le/b/a/b/h/h/f4; [Le/b/a/b/h/h/xc;)Le/b/a/b/h/h/xc; (0x34) --->
+                    Landroid/provider/Settings$Secure;->getString(Landroid/content/ContentResolver; Ljava/lang/String;)Ljava/lang/String;
+               => Le/b/a/b/h/h/v9;->a(Le/b/a/b/h/h/f4; [Le/b/a/b/h/h/xc;)Le/b/a/b/h/h/xc; (0x34) --->
+                    Landroid/provider/Settings$Secure;->getString(Landroid/content/ContentResolver; Ljava/lang/String;)Ljava/lang/String;
+[Warning] <SSL_Security> SSL Certificate Verification Checking:
+           Please make sure this app has the conditions to check the validation of SSL Certificate. If it's not properly checked, it MAY
+           allows self-signed, expired or mismatch CN certificates for SSL connection.
+           This is a critical vulnerability and allows attackers to do MITM attacks without your knowledge.
+           If you are transmitting users' username or password, these sensitive information may be leaking.
+           Reference:
+           (1)OWASP Mobile Top 10 doc: https://www.owasp.org/index.php/Mobile_Top_10_2014-M3
+           (2)Android Security book: http://goo.gl/BFb65r
+           (3)https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=134807561
+           This vulnerability is much more severe than Apple's "goto fail" vulnerability: http://goo.gl/eFlovw
+           Please do not try to create a "X509Certificate" and override "checkClientTrusted", "checkServerTrusted", and "getAcceptedIssuers"
+           functions with blank implementation.
+           We strongly suggest you use the existing API instead of creating your own X509Certificate class.
+           Please modify or remove these vulnerable code:
+               --------------------------------------------------
+               [Maybe Vulnerable (Please manually confirm)]
+               => Lcom/handelsbanken/mobile/android/pek2/tfa/ssl/CaCertTrustManager;
+                     -> used by: Lcom/handelsbanken/mobile/android/pek2/tfa/ssl/SslPeerValidator;->generateTrustManager(Ljava/lang/String;)[
+                    Ljavax/net/ssl/TrustManager;
+[Warning] <WebView> WebView Local File Access Attacks Checking:
+           Found "setAllowFileAccess(true)" or not set(enabled by default) in WebView. The attackers could inject malicious script into
+           WebView and exploit the opportunity to access local resources. This can be mitigated or prevented by disabling local file system
+           access. (It is enabled by default)
+           Note that this enables or disables file system access only. Assets and resources are still accessible using file:///android_asset
+           and file:///android_res.
+           The attackers can use "mWebView.loadUrl("file:///data/data/[Your_Package_Name]/[File]");" to access app's local file.
+           Reference: (1)https://labs.mwrinfosecurity.com/blog/2012/04/23/adventures-with-android-webviews/
+                      (2)http://developer.android.com/reference/android/webkit/WebSettings.html#setAllowFileAccess(boolean)
+           Please add or modify "yourWebView.getSettings().setAllowFileAccess(false)" to your WebView:
+               Lcom/handelsbanken/android/resources/InetActivity;->m0()V
+               Lcom/handelsbanken/android/resources/InetActivity;->onStart()V
+               Lcom/handelsbanken/android/resources/development/c;->onCreate(Landroid/os/Bundle;)V
+               Lcom/handelsbanken/mobile/android/informationgathering/InfoGatheringFragment;->updateUI()V
+[Warning] <WebView> WebView Potential XSS Attacks Checking:
+           Found "setJavaScriptEnabled(true)" in WebView, which could exposed to potential XSS attacks. Please check the web page code
+           carefully and sanitize the output:
+               => Lcom/handelsbanken/mobile/android/informationgathering/InfoGatheringFragment;->updateUI()V (0x76) --->
+                    Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V
+               => Lcom/handelsbanken/android/resources/InetActivity;->m0()V (0xd4) --->
+                    Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V
+[Notice] <Database><#CVE-2011-3901#> Android SQLite Databases Vulnerability Checking:
+           This app is using Android SQLite databases but it's "NOT" suffering from SQLite Journal Information Disclosure Vulnerability.
+[Notice]  File Unsafe Delete Checking:
+           Everything you delete may be recovered by any user or attacker, especially rooted devices.
+           Please make sure do not use "file.delete()" to delete essential files.
+           Check this video: https://www.youtube.com/watch?v=tGw1fxUD-uY
+               => Lc/g/e/b;->delete(Landroid/net/Uri; Ljava/lang/String; [Ljava/lang/String;)I (0xc) ---> Ljava/io/File;->delete()Z
+               => Lc/g/f/j;->a(Landroid/content/Context; Landroid/content/res/Resources; I Ljava/lang/String; I)Landroid/graphics/Typeface;
+                    (0x1c) ---> Ljava/io/File;->delete()Z
+               => Lc/g/f/j;->a(Landroid/content/Context; Landroid/content/res/Resources; I Ljava/lang/String; I)Landroid/graphics/Typeface;
+                    (0x34) ---> Ljava/io/File;->delete()Z
+               => Lc/g/f/j;->a(Landroid/content/Context; Landroid/content/res/Resources; I Ljava/lang/String; I)Landroid/graphics/Typeface;
+                    (0x3e) ---> Ljava/io/File;->delete()Z
+               => Lc/g/f/j;->a(Landroid/content/Context; Landroid/content/res/Resources; I Ljava/lang/String; I)Landroid/graphics/Typeface;
+                    (0x46) ---> Ljava/io/File;->delete()Z
+               => Lc/g/f/j;->a(Landroid/content/Context; Ljava/io/InputStream;)Landroid/graphics/Typeface; (0x1c) --->
+                    Ljava/io/File;->delete()Z
+               => Lc/g/f/j;->a(Landroid/content/Context; Ljava/io/InputStream;)Landroid/graphics/Typeface; (0x34) --->
+                    Ljava/io/File;->delete()Z
+               => Lc/g/f/j;->a(Landroid/content/Context; Ljava/io/InputStream;)Landroid/graphics/Typeface; (0x3e) --->
+                    Ljava/io/File;->delete()Z
+               => Lc/g/f/j;->a(Landroid/content/Context; Ljava/io/InputStream;)Landroid/graphics/Typeface; (0x46) --->
+                    Ljava/io/File;->delete()Z
+               => Lc/g/f/k;->a(Landroid/content/Context; Landroid/content/res/Resources; I)Ljava/nio/ByteBuffer; (0x1c) --->
+                    Ljava/io/File;->delete()Z
+               => Lc/g/f/k;->a(Landroid/content/Context; Landroid/content/res/Resources; I)Ljava/nio/ByteBuffer; (0x2c) --->
+                    Ljava/io/File;->delete()Z
+               => Lc/g/f/k;->a(Landroid/content/Context; Landroid/content/res/Resources; I)Ljava/nio/ByteBuffer; (0x36) --->
+                    Ljava/io/File;->delete()Z
+               => Lcom/google/android/gms/measurement/internal/h;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase; (0x70) --->
+                    Ljava/io/File;->delete()Z
+               => Lcom/google/android/gms/measurement/internal/u3;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase; (0x40)
+                    ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/h/k0;->a(Ljava/io/File;)V (0x2c) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/h/k;->a([Ljava/io/File; Ljava/util/Set;)V (0x5c) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/h/k;->a([Ljava/io/File; Ljava/util/Set;)V (0xaa) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/h/k;->c([Ljava/io/File;)V (0x12) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/h/k;->u()Le/b/a/b/l/h; (0x80) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/h/k;->a([Ljava/io/File;)V (0xb6) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/h/n;->c()Z (0x8) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/i/b;->a(Ljava/util/Set;)V (0x38) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/l/g;->c()V (0x56) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/l/g;->e(Ljava/io/File;)V (0x32) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/l/g;->a()V (0x28) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/l/g;->a(Ljava/lang/String;)V (0x6c) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/l/g;->b()Ljava/util/List; (0xb0) ---> Ljava/io/File;->delete()Z
+               => Lcom/handelsbanken/android/resources/network/a;->a(Landroid/app/Activity; Ljava/lang/String; Z
+                    Ljava/lang/String;)Ljava/io/File; (0x386) ---> Ljava/io/File;->delete()Z
+               => Lcom/handelsbanken/android/resources/network/a;->a(Landroid/content/Context;)V (0xc2) ---> Ljava/io/File;->delete()Z
+               => Lcom/handelsbanken/android/resources/network/a;->a(Landroid/content/Context;)V (0x218) ---> Ljava/io/File;->delete()Z
+               => Lcom/handelsbanken/android/resources/utils/k;->a(Landroid/content/Context; Ljava/lang/String;)Z (0x22) --->
+                    Ljava/io/File;->delete()Z
+               => Lcom/handelsbanken/android/resources/utils/k;->a(Landroid/content/Context; Ljava/lang/String; Landroid/graphics/Bitmap;
+                    Landroid/graphics/Bitmap$CompressFormat;)Z (0x20) ---> Ljava/io/File;->delete()Z
+               => Lcom/handelsbanken/android/resources/utils/t;->a(Landroid/app/Activity; Ljava/lang/String;)V (0x56) --->
+                    Ljava/io/File;->delete()Z
+               => Lcom/handelsbanken/android/resources/utils/t;->a(Landroid/content/Context; Ljava/lang/String;)Z (0x56) --->
+                    Ljava/io/File;->delete()Z
+               => Le/b/a/b/h/h/u3;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase; (0x8c) ---> Ljava/io/File;->delete()Z
+               => Le/b/a/b/h/h/ub;->b(Ljava/lang/String; [B)V (0x80) ---> Ljava/io/File;->delete()Z
+               => Le/b/a/b/h/h/w;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase; (0x68) ---> Ljava/io/File;->delete()Z
+               => Lc/g/f/e;->a(Landroid/content/Context; Lc/g/e/d/c$b; Landroid/content/res/Resources; I)Landroid/graphics/Typeface; (0x40)
+                    ---> Ljava/io/File;->delete()Z
+               => Lc/g/f/e;->a(Landroid/content/Context; Lc/g/e/d/c$b; Landroid/content/res/Resources; I)Landroid/graphics/Typeface; (0x6c)
+                    ---> Ljava/io/File;->delete()Z
+               => Lc/g/f/e;->a(Landroid/content/Context; Lc/g/e/d/c$b; Landroid/content/res/Resources; I)Landroid/graphics/Typeface; (0x74)
+                    ---> Ljava/io/File;->delete()Z
+               => Lc/g/f/e;->a(Landroid/content/Context; Lc/g/e/d/c$b; Landroid/content/res/Resources; I)Landroid/graphics/Typeface; (0x82)
+                    ---> Ljava/io/File;->delete()Z
+               => Lc/g/f/e;->a(Landroid/content/Context; Lc/g/e/d/c$b; Landroid/content/res/Resources; I)Landroid/graphics/Typeface; (0x8a)
+                    ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/i/d;->d()V (0xa) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/n/c/b;->remove()V (0x4c) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/n/c/b;->remove()V (0x90) ---> Ljava/io/File;->delete()Z
+               => Lcom/google/firebase/crashlytics/d/n/c/d;->remove()V (0x40) ---> Ljava/io/File;->delete()Z
+[Notice] <Debug><Hacker> Codes for Checking Android Debug Mode:
+           Found codes for checking "ApplicationInfo.FLAG_DEBUGGABLE" in AndroidManifest.xml:
+               => Le/b/a/b/e/k;->a (Ljava/lang/String; I)Le/b/a/b/e/d0;
+[Notice] <Hacker> APK Installing Source Checking:
+           This app has code checking APK installer sources(e.g. from Google Play, from Amazon, etc.). It might be used to check for whether
+           the app is hacked by the attackers.
+               => Lcom/google/android/gms/analytics/t;->b()Le/b/a/b/h/h/sd; (0x3a) --->
+                    Landroid/content/pm/PackageManager;->getInstallerPackageName(Ljava/lang/String;)Ljava/lang/String;
+               => Lcom/google/firebase/crashlytics/d/h/z;->b(Landroid/content/Context;)Ljava/lang/String; (0x10) --->
+                    Landroid/content/pm/PackageManager;->getInstallerPackageName(Ljava/lang/String;)Ljava/lang/String;
+               => Lcom/google/firebase/FirebaseCommonRegistrar;->d(Landroid/content/Context;)Ljava/lang/String; (0x10) --->
+                    Landroid/content/pm/PackageManager;->getInstallerPackageName(Ljava/lang/String;)Ljava/lang/String;
+               => Lcom/google/android/gms/measurement/internal/s3;->z()V (0x5a) --->
+                    Landroid/content/pm/PackageManager;->getInstallerPackageName(Ljava/lang/String;)Ljava/lang/String;
+[Notice] <KeyStore><Hacker> Possible KeyStore File Location:
+           BKS possible keystore file:
+               assets/tron_test_certificate_der
+[Notice] <Hacker> Code Setting Preventing Screenshot Capturing:
+           This app has code setting the preventing screenshot capturing.
+           Example: getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+           It is used by the developers to protect the app:
+               => Lcom/handelsbanken/android/resources/e;->onCreate(Landroid/os/Bundle;)V (0x56) ---> Landroid/view/Window;->setFlags(I I)V
+               => Lcom/handelsbanken/android/resources/f;->onCreate(Landroid/os/Bundle;)V (0x3e) ---> Landroid/view/Window;->setFlags(I I)V
+[Notice] <Signature><Hacker> Getting Signature Code Checking:
+           This app has code checking the package signature in the code. It might be used to check for whether the app is hacked by the
+           attackers.
+               => Lc/g/k/b;->a(Landroid/content/pm/PackageManager; Lc/g/k/a;
+                    Landroid/content/res/Resources;)Landroid/content/pm/ProviderInfo; (0x36) --->
+                    Landroid/content/pm/PackageManager;->getPackageInfo(Ljava/lang/String; I)Landroid/content/pm/PackageInfo;
+               => Lcom/google/android/gms/common/util/p;->a(Landroid/content/Context; I)Z (0x20) --->
+                    Landroid/content/pm/PackageManager;->getPackageInfo(Ljava/lang/String; I)Landroid/content/pm/PackageInfo;
+               => Le/b/a/b/e/j;->a(Landroid/content/Context; Z I)I (0x68) --->
+                    Landroid/content/pm/PackageManager;->getPackageInfo(Ljava/lang/String; I)Landroid/content/pm/PackageInfo;
+               => Le/b/a/b/e/r/b;->a(Ljava/lang/String; I I)Landroid/content/pm/PackageInfo; (0x10) --->
+                    Landroid/content/pm/PackageManager;->getPackageInfo(Ljava/lang/String; I)Landroid/content/pm/PackageInfo;
+[Notice]  Native Library Loading Checking:
+           Native library loading codes(System.loadLibrary(...)) found:
+               [libjpgt.so]
+               => Lcom/googlecode/leptonica/android/Enhance;-><clinit>()V (0x4) ---> Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libpngt.so]
+               => Lcom/googlecode/leptonica/android/Enhance;-><clinit>()V (0xe) ---> Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [liblept.so]
+               => Lcom/googlecode/leptonica/android/Enhance;-><clinit>()V (0x18) ---> Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libjpgt.so]
+               => Lcom/googlecode/leptonica/android/Pix;-><clinit>()V (0x4) ---> Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libpngt.so]
+               => Lcom/googlecode/leptonica/android/Pix;-><clinit>()V (0xe) ---> Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [liblept.so]
+               => Lcom/googlecode/leptonica/android/Pix;-><clinit>()V (0x18) ---> Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libjpgt.so]
+               => Lcom/googlecode/leptonica/android/ReadFile;-><clinit>()V (0x4) ---> Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libpngt.so]
+               => Lcom/googlecode/leptonica/android/ReadFile;-><clinit>()V (0xe) ---> Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [liblept.so]
+               => Lcom/googlecode/leptonica/android/ReadFile;-><clinit>()V (0x18) ---> Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libjpgt.so]
+               => Lcom/googlecode/leptonica/android/WriteFile;-><clinit>()V (0x4) ---> Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libpngt.so]
+               => Lcom/googlecode/leptonica/android/WriteFile;-><clinit>()V (0xe) ---> Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [liblept.so]
+               => Lcom/googlecode/leptonica/android/WriteFile;-><clinit>()V (0x18) ---> Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libjpgt.so]
+               => Lcom/googlecode/tesseract/android/PageIterator;-><clinit>()V (0x4) --->
+                    Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libpngt.so]
+               => Lcom/googlecode/tesseract/android/PageIterator;-><clinit>()V (0xe) --->
+                    Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [liblept.so]
+               => Lcom/googlecode/tesseract/android/PageIterator;-><clinit>()V (0x18) --->
+                    Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libtess.so]
+               => Lcom/googlecode/tesseract/android/PageIterator;-><clinit>()V (0x22) --->
+                    Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libjpgt.so]
+               => Lcom/googlecode/tesseract/android/TessBaseAPI;-><clinit>()V (0x4) --->
+                    Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libpngt.so]
+               => Lcom/googlecode/tesseract/android/TessBaseAPI;-><clinit>()V (0xe) --->
+                    Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [liblept.so]
+               => Lcom/googlecode/tesseract/android/TessBaseAPI;-><clinit>()V (0x18) --->
+                    Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libtess.so]
+               => Lcom/googlecode/tesseract/android/TessBaseAPI;-><clinit>()V (0x22) --->
+                    Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libTfaAndroid.so]
+               => Lcom/handelsbanken/mobile/android/pek2/tfa/jni/Tfa;-><clinit>()V (0x4) --->
+                    Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libjpgt.so]
+               => Lcom/googlecode/tesseract/android/ResultIterator;-><clinit>()V (0x4) --->
+                    Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libpngt.so]
+               => Lcom/googlecode/tesseract/android/ResultIterator;-><clinit>()V (0xe) --->
+                    Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [liblept.so]
+               => Lcom/googlecode/tesseract/android/ResultIterator;-><clinit>()V (0x18) --->
+                    Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+               [libtess.so]
+               => Lcom/googlecode/tesseract/android/ResultIterator;-><clinit>()V (0x22) --->
+                    Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+[Notice]  AndroidManifest Exported Components Checking 2:
+           Found "exported" components(except for Launcher) for receiving Google's "Android" actions (AndroidManifest.xml):
+                 activity => com.handelsbanken.android.resources.office.OfficeListActivity
+                 activity => com.google.android.gms.tagmanager.TagManagerPreviewActivity
+[Info]  AndroidManifest Adb Backup Checking:
+           This app has disabled Adb Backup.
+[Info] <Command> Executing "root" or System Privilege Checking:
+           Did not find codes checking "root" permission(su) or getting system permission (It's still possible we did not find out).
+[Info] <Database> SQLiteDatabase Transaction Deprecated Checking:
+           Ignore checking "SQLiteDatabase:beginTransactionNonExclusive" because your set minSdk >= 11.
+[Info] <Database> Android SQLite Databases Encryption (SQLite Encryption Extension (SEE)):
+           This app is "NOT" using SQLite Encryption Extension (SEE) on Android (http://www.sqlite.org/android) to encrypt or decrpyt
+           databases.
+[Info] <Database> Android SQLite Databases Encryption (SQLCipher):
+           This app is "NOT" using SQLCipher(http://sqlcipher.net/) to encrypt or decrpyt databases.
+[Info] <Debug> Android Debug Mode Checking:
+           DEBUG mode is OFF(android:debuggable="false") in AndroidManifest.xml.
+[Info]  Dynamic Code Loading:
+           No dynamic code loading(DexClassLoader) found.
+[Info] <#BID 64208, CVE-2013-6271#> Fragment Vulnerability Checking:
+           Did not detect the vulnerability of "Fragment" dynamically loading into "PreferenceActivity" or "SherlockPreferenceActivity"
+[Info] <Framework> Framework - MonoDroid:
+           This app is NOT using MonoDroid Framework (http://xamarin.com/android).
+[Info] <Hacker> Base64 String Encryption:
+           No encoded Base64 String or Urls found.
+[Info] <Database><Hacker> Key for Android SQLite Databases Encryption:
+           Did not find using the symmetric key(PRAGMA key) to encrypt the SQLite databases (It's still possible that it might use but we
+           did not find out).
+[Info] <KeyStore><Hacker> KeyStore Protection Checking:
+           Ignore checking KeyStore protected by password or not because you're not using KeyStore.
+[Info]  HttpURLConnection Android Bug Checking:
+           Ignore checking "http.keepAlive" because you're not using "HttpURLConnection" and min_Sdk > 8.
+[Info] <KeyStore> KeyStore Type Checking:
+           KeyStore 'BKS' type check OK
+[Info]  Google Cloud Messaging Suggestion:
+           Nothing to suggest.
+[Info] <#CVE-2013-4787#> Master Key Type I Vulnerability:
+           No Master Key Type I Vulnerability in this APK.
+[Info]  App Sandbox Permission Checking:
+           No security issues "MODE_WORLD_READABLE" or "MODE_WORLD_WRITEABLE" found on 'openOrCreateDatabase' or 'openOrCreateDatabase2' or
+           'getDir' or 'getSharedPreferences' or 'openFileOutput'
+[Info]  AndroidManifest Dangerous ProtectionLevel of Permission Checking:
+           No "dangerous" protection level customized permission found (AndroidManifest.xml).
+[Info]  AndroidManifest PermissionGroup Checking:
+           PermissionGroup in permission tag of AndroidManifest sets correctly.
+[Info] <Implicit_Intent> Implicit Service Checking:
+           No dangerous implicit service.
+[Info]  AndroidManifest "intent-filter" Settings Checking:
+           "intent-filter" of AndroidManifest.xml check OK.
+[Info]  AndroidManifest Normal ProtectionLevel of Permission Checking:
+           No default or "normal" protection level customized permission found (AndroidManifest.xml).
+[Info] <#CVE-2013-6272#> AndroidManifest Exported Lost Prefix Checking:
+           No exported components that forgot to add "android:" prefix.
+[Info] <Sensitive_Information> Getting IMEI and Device ID:
+           Did not detect this app is getting the "device id(IMEI)" by "TelephonyManager.getDeviceId()" approach.
+[Info]  Codes for Sending SMS:
+           Did not detect this app has code for sending SMS messages (sendDataMessage, sendMultipartTextMessage or sendTextMessage).
+[Info] <System> AndroidManifest sharedUserId Checking:
+           This app does not use "android.uid.system" sharedUserId.
+[Info] <SSL_Security> SSL Implementation Checking (Verifying Host Name in Custom Classes):
+           Self-defined HOSTNAME VERIFIER checking OK.
+[Info] <SSL_Security> SSL Implementation Checking (Verifying Host Name in Fields):
+           Critical vulnerability "ALLOW_ALL_HOSTNAME_VERIFIER" field setting or "AllowAllHostnameVerifier" class instance not found.
+[Info] <SSL_Security> SSL Implementation Checking (Insecure component):
+           Did not detect SSLSocketFactory by insecure method "getInsecure".
+[Info] <SSL_Security> SSL Implementation Checking (HttpHost):
+           DEFAULT_SCHEME_NAME for HttpHost check: OK
+[Info] <SSL_Security> SSL Implementation Checking (WebViewClient for WebView):
+           Did not detect critical usage of "WebViewClient"(MITM Vulnerability).
+[Info]  Unnecessary Permission Checking:
+           Permission 'android.permission.ACCESS_MOCK_LOCATION' sets correctly.
+[Info]  Accessing the Internet Checking:
+           This app is using the Internet via HTTP protocol.
+[Info]  AndroidManifest System Use Permission Checking:
+           No system-level critical use-permission found.
+------------------------------------------------------------
+AndroBugs analyzing time: 31.758 secs
+Total elapsed time: 132.553 secs
+<<< Analysis report is generated: C:\Users\yamin\Reports\com.handelsbanken.mobile.android_6bac36a2e6f8575a89193d4b7104dccc42b7dba1d5c0d5b431395950835e2a5bc727495e253cbb071bf7d80f88e1416c8e8bc6a867a55eebc567a044a2077e04.txt >>>
