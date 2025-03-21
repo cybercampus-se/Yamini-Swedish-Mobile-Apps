@@ -68,3 +68,19 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+The output for this:
+Validating Google Maps API key...
+❌ Google Maps API key is invalid or restricted.
+Error: This API project is not authorized to use this API.
+
+Validating Firebase AuthToken...
+✅ Firebase AuthToken is valid.
+Expiration Time: 2025-03-28 19:49:21
+
+Validating Firebase RefreshToken...
+✅ Firebase RefreshToken appears to be valid.
+
+Validating Firebase Session ID...
+✅ Firebase Session ID appears to be valid.
