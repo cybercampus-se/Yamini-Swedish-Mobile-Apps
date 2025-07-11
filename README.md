@@ -20,7 +20,7 @@
   </a>
 
 <a href="https://www.overleaf.com/read/jfzrqxmctvfp" target="_blank">
-  <img src="https://img.shields.io/badge/Overleaf-proposal-138a07?style=flat&logo=Overleaf" alt="Overleaf Badge" />
+  <img src="https://img.shields.io/badge/Overleaf-Report-138a07?style=flat&logo=Overleaf" alt="Overleaf Badge" />
 </a>
 
   
