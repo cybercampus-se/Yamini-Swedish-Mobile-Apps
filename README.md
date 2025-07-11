@@ -64,11 +64,28 @@
 
 ## Abstract
 
-The widespread adoption of mobile applications for critical services such as banking, transportation, healthcare, parking, and food delivery has heightened concerns about data security and user privacy. These applications manage vast amounts of sensitive information, making them prime targets for cyber threats. This research aims to systematically identify and analyze security vulnerabilities in five widely used mobile applications in Sweden—Foodora, Handelsbanken, SL, Apotek, and Betala P—through penetration testing, static and dynamic analysis, and reverse engineering techniques.
-
-Building upon prior research in mobile application security, this study focuses on key areas such as data encryption, authentication mechanisms, session management, API security, and GDPR compliance. Utilizing advanced security assessment tools, including Burp Suite, MobSF, OWASP ZAP, Frida, and APKTool, the research will simulate real-world attack scenarios to uncover vulnerabilities that may compromise user privacy and financial security.
-
-By employing a systematic penetration testing approach, this study seeks to provide actionable insights for developers, policymakers, and regulatory bodies to enhance security measures in mobile applications. The expected outcomes include a comprehensive vulnerability assessment report, security enhancement recommendations, and increased awareness among users regarding potential cyber threats. Ultimately, this research aims to strengthen the security posture of mobile applications, contributing to a more resilient digital ecosystem in Sweden.
+This project investigates the security posture of widely used mobile applications,
+focusing on key challenges related to user data protection, application integrity,
+and the secure management of communication channels. By evaluating applications
+across different sectors, the study identifies critical vulnerabilities, including
+insecure data storage practices, weak cryptographic implementations, improper
+session management, and insufficient network security configurations.
+The analysis reveals the substantial risks associated with sensitive information
+exposure, unauthorized data access, and session hijacking, all of which could
+compromise user trust and organizational reputation. Through systematic threat
+modeling and prioritization of findings, the research demonstrates that adopting
+globally recognized security standards, such as the OWASP Mobile Security
+Testing Guide (MSTG) and the Mobile Application Security Verification Standard
+(MASVS), can significantly enhance the security resilience, reliability, and
+privacy assurances of mobile applications.
+The study concludes by highlighting the importance of continuous security
+evaluations, proactive vulnerability remediation, and secure-by-design development
+methodologies. It recommends future enhancements, including the automation
+of vulnerability detection processes, the strengthening of encryption standards,
+and the advancement of user-centric security frameworks to further elevate the
+overall security and sustainability of the mobile application ecosystem. Finally, a
+comparative analysis across all evaluated applications was conducted to quantify
+and contrast their security posture based on OWASP and MASVS compliance.
 
 ## Illustration
 
